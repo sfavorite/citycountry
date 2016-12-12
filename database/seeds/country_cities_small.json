@@ -1,0 +1,121 @@
+{
+    "Private": [
+       "Private"
+    ],
+   "China": [
+      "Guangzhou",
+      "Fuzhou",
+      "Beijing",
+      "Baotou",
+      "Hohhot",
+      "Guiyang",
+      "Yinchuan",
+      "Nanjing",
+      "Changzhou",
+      "Luohe",
+      "Luoyang",
+      "Chaoyang",
+      "Xingyi",
+      "Foshan",
+      "Feiyun"
+   ],
+   "Japan": [
+      "Tokyo",
+      "Hiroshima",
+      "Saitama",
+      "Osaki",
+      "Shiba-Kaigandori",
+      "Tokamachi"
+   ],
+   "Thailand": [
+      "Bangkok",
+      "Chumphon",
+      "Uttaradit",
+      "Maha Sarakham",
+      "Ban Don Sak",
+      "Phanna Nikhom",
+      "Ban Na",
+      "Ban Ko Pao",
+      "Mae Sot"
+   ],
+   "United States": [
+      "Mukilteo",
+      "Fairfield",
+      "Chicago",
+      "Hernando",
+      "Irving",
+      "Baltimore",
+      "Kingston",
+      "Burlington",
+      "Harrison",
+      "Newton Center",
+      "Littleton",
+      "Bloomington",
+      "San Ramon",
+      "Downers Grove",
+      "Circleville",
+      "Oxnard",
+      "Gulfport",
+      "Portland",
+      "Houston",
+      "Greenbank",
+      "Somerset",
+      "Burgos",
+      "Naguilian",
+      "San Vicente",
+      "Sto Nino",
+      "Province of Laguna",
+      "Quezon"
+   ],
+   "United Kingdom": [
+      "Pershore",
+      "Atherton",
+      "Olsany",
+      "Muerren",
+      "Zufikon",
+      "Obervaz",
+      "Rifferswil",
+      "Les Diablerets",
+      "Brusino Arsizio",
+      "Sessa"
+   ],
+   "Iraq": [
+      "Baghdad",
+      "Karkh",
+      "Sulaymaniyah",
+      "Kirkuk",
+      "Erbil",
+      "Basra",
+      "Bahr",
+      "Tikrit",
+      "Najaf",
+      "Al Hillah",
+      "Mosul",
+      "Haji Hasan",
+      "Al `Amarah",
+      "Basere",
+      "Manawi",
+      "Hayat"
+   ],
+   "Turkey": [
+      "Izmir",
+      "Ankara",
+      "Terra Roxa",
+      "Brochier"
+   ],
+   "Saint Helena": [
+      "Tristan Da Cunha",
+      "Jamestown"
+   ],
+   "Christmas Island": [
+      "Flying Fish Cove"
+   ],
+   "Ethiopia": [
+      "Addis Ababa",
+      "Awasa",
+      "Jijiga"
+   ],
+   "British Indian Ocean Territory": [
+      ""
+   ]
+}
