@@ -42,7 +42,6 @@ class ResponseController extends Controller
                 //$cities = \App\City::where('user_id', '=', $user_id)->addSelect(array('id', 'city'))->get();
 
                 $cities = \App\Country::where('country', 'LIKE', $request->input('key') . '%')->addSelect(array('country'))->get();
-                //$cities = \App\City::where('city', 'LIKE', 'Cuy' . '%')->addSelect(array('city'))->get();
                 return $cities;
     }
 
