@@ -13,7 +13,7 @@
 
 \Debugbar::info('Have a web route');
 
-Route::get('/index', function () {
-    \Debugbar::info('Returning index view');
+Route::get('/', function () {
+    //\Debugbar::info('Returning index view');
     return view('welcome');
 });
