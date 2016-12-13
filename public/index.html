@@ -59,6 +59,11 @@
                 },
                onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);
+               },
+               onSearchError: function (query, jqXHR, textStatus, errorThrown) {
+                   $('#citySearch').removeClass('autocomplete-loading');
+                   console.log("textStatus: " + textStatus);
+                   console.log(query);
                }
            });
        });
