@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
+\Debugbar::info('Have an API route');
+
 Log::info('API requested');
 Route::get('/user', function (Request $request) {
     return $request->user();

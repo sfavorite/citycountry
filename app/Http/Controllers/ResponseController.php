@@ -48,12 +48,13 @@ class ResponseController extends Controller
 
     function getCityCountry(Request $request) {
 
+
         Log::info('Function getCityCountry');
         $key = $request->key . "%";
 
         Log::info($key);
         $results = DB::select("select cities.city, countries.country from countries inner join (cities inner join city_country on cities.id = city_country.city_id) on countries.id = city_country.country_id where cities.city like ? LIMIT 25;", [$key]);
-
+        Log::info($results);
         // Return jsonp
         return response()
                     ->json($results)
