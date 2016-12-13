@@ -12,8 +12,8 @@
 |
 */
 
-
+Log::info('API requested');
 Route::get('/', function () {
-    \Debugbar::info('Returning index view');
+    Log::info('Returning index view');
     return view('index');
 });
