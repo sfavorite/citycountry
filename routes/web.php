@@ -11,7 +11,7 @@
 |
 */
 
-\Debugbar::info('Have a web route');
+//\Debugbar::info('Have a web route');
 
 Route::get('/', function () {
     //\Debugbar::info('Returning index view');
