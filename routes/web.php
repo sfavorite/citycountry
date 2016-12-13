@@ -15,5 +15,5 @@
 
 Route::get('/index', function () {
     \Debugbar::info('Returning index view');
-    return view('index');
+    return view('welcome');
 });
