@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +12,8 @@
 |
 */
 
-//\Debugbar::info('Have a web route');
 
 Route::get('/', function () {
-    echo 'hello';
-    //\Debugbar::info('Returning index view');
-    //return view('welcome');
+    \Debugbar::info('Returning index view');
+    return view('index');
 });
