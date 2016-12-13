@@ -35,11 +35,12 @@
     </form>
     <script>
     $(document).ready(function() {
-
+        var server_name = window.location.host;
+        console.log(server_name);
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
-               //serviceUrl: "http://citycountry.scotfavorite.net/api/citycountry?key=",
-               serviceUrl: "http://192.168.1.49:8000/api/citycountry?key=",
+               serviceUrl: "http://" + server_name + "/api/citycountry?key=",
+               //serviceUrl: "http://192.168.1.49:800/api/citycountry?key=",
                dataType: 'jsonp',
                paramName: 'key',
                onSearchStart: function () {
