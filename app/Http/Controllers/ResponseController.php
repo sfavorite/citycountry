@@ -93,7 +93,7 @@ class ResponseController extends Controller
         # Get query type
         switch($queryType) {
             case 'city':
-                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/1 ' . $city . '?o=json&key=' . $map_key);
+                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/' . $city . '?o=json&key=' . $map_key);
                 break;
             case 'citystate':
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/US/MN//New%20York%20Mills/?o=json&key=A' . $map_key);
