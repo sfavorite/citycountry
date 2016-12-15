@@ -74,12 +74,14 @@ class ResponseController extends Controller
 
     }
 
-    function getLatLong(Request $request) {
+    function getLatLon(Request $request) {
         $map_key = env('BING_MAP_KEY');
 
+        \Debugbar::info($request->city);
         $this->validate($request, [
-            'key' => 'AlphaNum|Required'
+            'city' => 'Required'
         ]);
+        \Debugbar::info('Passed validation');
 
         // For now only check for city name
         $queryType = 'city';
@@ -87,10 +89,11 @@ class ResponseController extends Controller
         # Start a Guzzle client
         $client = new Client();
         $city = $request->city;
+        \Debugbar::info('Using ' . $city);
         # Get query type
         switch($queryType) {
             case 'city':
-                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations?locality=' . $city . '&key=' . $map_key);
+                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/1 ' . $city . '?o=json&key=' . $map_key);
                 break;
             case 'citystate':
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/US/MN//New%20York%20Mills/?o=json&key=A' . $map_key);
@@ -104,8 +107,11 @@ class ResponseController extends Controller
 
         $bingJson = $res->getBody();
         $bingObject = json_decode($bingJson, true);
+        \Debugbar::info($bingObject);
 
         if (json_last_error() === JSON_ERROR_NONE) {
+            \Debugbar::info('No json errors');
+            \Debugbar::info($bingObject);
             //return $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
             $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
             // Return jsonp

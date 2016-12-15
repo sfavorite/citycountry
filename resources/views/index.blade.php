@@ -29,7 +29,7 @@
 <body>
     <h1>Test City API</h1>
 
-    <p id="selection"></p>
+    <p id="selection">Nothing selected</p>
 
     <form id="citySearchForm">
         <input id="citySearch"  type="text" size="40" placeholder="City name..."/>
@@ -38,12 +38,12 @@
     <script>
     $(document).ready(function() {
         var server_name = window.location.host;
-        console.log(server_name);
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
                serviceUrl: "http://" + server_name + "/api/citycountry",
                dataType: 'jsonp',
                paramName: 'key',
+               autoSelectFirst: true,
                onSearchStart: function () {
                    $('#citySearch').addClass('autocomplete-loading');
                },
@@ -56,7 +56,7 @@
                        suggestions: $.map(response, function(item) {
                            //console.log(response);
                            //console.log('item' + item);
-                           return { value: item.city_name, data: item.subdivision_1_name + ' ' + item.country_name };
+                           return { value: item.city_name, data: item.subdivision_2_name + ' ' + item.subdivision_1_name + ' ' + item.country_name };
                        })
                    };
                 },
@@ -66,6 +66,7 @@
                onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);
                    $("#selection").html(suggestion.value + ', ' + suggestion.data);
+                   LatLon(suggestion.value + ' ' + suggestion.data);
                },
                onSearchError: function (query, jqXHR, textStatus, errorThrown) {
                    $('#citySearch').removeClass('autocomplete-loading');
@@ -74,6 +75,16 @@
                }
            });
        });
+
+       function LatLon(city) {
+           console.log(city);
+          $.ajax({
+              url: "http://" + server_name + "/api/latlon?city=" + city,
+              success: function(data) {
+                  console.log(data);
+              }
+          });
+       };
 
     });
     </script>

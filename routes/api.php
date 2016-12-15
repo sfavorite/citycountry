@@ -23,4 +23,4 @@ Route::get('/user', function (Request $request) {
 Route::get('/cities', 'ResponseController@getCities');
 Route::get('/countries', 'ResponseController@getCountries');
 Route::get('/citycountry', 'ResponseController@getCityInfo');
-Route::get('/latlong', 'ResponseController@getLatLong');
+Route::get('/latlon', 'ResponseController@getLatLon');
