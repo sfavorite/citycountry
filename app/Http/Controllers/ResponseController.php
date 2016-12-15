@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use \App\City;
+use Response;
 
 class ResponseController extends Controller
 {
@@ -46,6 +48,16 @@ class ResponseController extends Controller
                 return $cities;
     }
 
+    function getCityInfo(Request $request) {
+
+        //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
+        $cities = City::where('city_name', 'Like',  $request->key .'%')->take(20)->get();
+
+        \Debugbar::info($cities);
+        return Response::json($cities)->withCallback($request->input('callback'));
+
+    }
+
     function getCityCountry(Request $request) {
 
 
@@ -57,7 +69,7 @@ class ResponseController extends Controller
         Log::info($results);
         // Return jsonp
         return response()
-                    ->json($results)
+                    ->json($cities)
                     ->withCallback($request->input('callback'));
 
     }

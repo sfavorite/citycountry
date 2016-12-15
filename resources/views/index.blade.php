@@ -39,8 +39,7 @@
         console.log(server_name);
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
-               serviceUrl: "http://" + server_name + "/api/citycountry?key=",
-               //serviceUrl: "http://192.168.1.49:800/api/citycountry?key=",
+               serviceUrl: "http://" + server_name + "/api/citycountry",
                dataType: 'jsonp',
                paramName: 'key',
                onSearchStart: function () {
@@ -50,14 +49,17 @@
                    $('#citySearch').removeClass('autocomplete-loading');
                },
                transformResult: function(response) {
+                   console.log(response);
                    return {
                        suggestions: $.map(response, function(item) {
-                           return { value: item.city, data: item.country };
+                           //console.log(response);
+                           //console.log('item' + item);
+                           return { value: item.city_name, data: item.subdivision_1_name + ' ' + item.country_name };
                        })
                    };
                 },
                 formatResult: function(suggestion, currentValue){
-                    return suggestion.value+', '+suggestion.data;
+                    return suggestion.value + ', ' + suggestion.data;
                 },
                onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);

@@ -11,52 +11,29 @@ class CityTableSeeder extends Seeder
      */
     public function run()
     {
-        $json = file_get_contents(__DIR__ . '/country_cities.json');
+        $file = fopen('database/seeds/GeoLite.csv', 'r');
+        // Skip the headers (first line)
+        $data = fgetcsv($file);
+        while (($data = fgetcsv($file)) !== FALSE) {
 
-        $country = json_decode($json, true);
-        $city_array = array();
-        echo 'Starting loop....this will take a while' . "\r\n";
-
-        $country_count = 0;
-        $total_cities = 0;
-        $time_start = microtime(true);
-
-        $DB_countries = \App\Country::get();
-        foreach ($country as $key => $cities) {
-            $A_country = $DB_countries->filter(function($item) use($key){
-                return $item->country === $key;
-            })->first();
-
-            $country_count += 1;
-
-            // Get the country from the database
-            echo $country_count . " of 247) " . $key. "\r\n";
-
-            $city_count = 0;
-            foreach($cities as $city) {
-                $city_count += 1;
-                $total_cities += 1;
-
-                if (!in_array($city, $city_array)) {
-                    $city_array[] = $city;
-
-                    $db_city = new \App\City();
-                    $db_city->city = $city;
-                    $db_city->save();
-                } else {
-                    // Get the city from the database;
-                    $db_city = \App\City::where('city', '=', $city)->first();
-                }
-
-                // Make our pivot table association.
-                $A_country->cities()->save($db_city);
-            }
-            echo 'Number of cities: ' . $city_count . "\r\n";
+            DB::table('cities')->insert([
+                'created_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),
+                'geoname_id' => $data[0],
+                'locale' => $data[1],
+                'continent_code' => $data[2],
+                'continent_name' => $data[3],
+                'country_iso_code' => $data[4],
+                'country_name' => $data[5],
+                'subdivision_1_iso_code' => $data[6],
+                'subdivision_1_name' => $data[7],
+                'subdivision_2_iso_code' => $data[8],
+                'subdivision_2_name' => $data[9],
+                'city_name' => $data[10],
+                'metro_code' => $data[11],
+                'time_zone' => $data[12],
+            ]);
         }
-        echo 'Total cities processed: ' . $total_cities . "\r\n";
-        $time_end = microtime(true);
-        $execution_time = ($time_end - $time_start)/60;
-        echo 'Total execution time: ' . $execution_time . "\r\n";
-
+        fclose($file);
     }
 }

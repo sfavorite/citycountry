@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+/*
     public function coutries() {
         return $this->belongsToMany('App\Country')->withTimestamps();
     }
@@ -18,4 +19,5 @@ class City extends Model
     protected $fillable = [
         'city',
     ];
+    */
 }

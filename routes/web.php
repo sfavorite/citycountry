@@ -1,5 +1,6 @@
 <?php
 
+use \App\City;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,8 +13,12 @@
 |
 */
 
-Log::info('API requested');
+Log::info('Web requested');
 Route::get('/', function () {
-    Log::info('Returning index view');
     return view('index');
+});
+
+Route::get('/geo', function() {
+    $cities = City::first();
+    return $cities;
 });

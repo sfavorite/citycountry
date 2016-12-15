@@ -780,7 +780,8 @@
 
         verifySuggestionsFormat: function (suggestions) {
             // If suggestions is string array, convert them to supported format:
-
+            console.log('verify');
+            console.log(suggestions);
             if (suggestions.length && typeof suggestions[0] === 'string') {
                 return $.map(suggestions, function (value) {
                     return { value: value, data: null };
