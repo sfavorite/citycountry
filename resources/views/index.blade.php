@@ -29,10 +29,12 @@
 <body>
     <h1>Test City API</h1>
 
+    <p id="selection"></p>
 
     <form id="citySearchForm">
         <input id="citySearch"  type="text" size="40" placeholder="City name..."/>
     </form>
+
     <script>
     $(document).ready(function() {
         var server_name = window.location.host;
@@ -63,6 +65,7 @@
                 },
                onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);
+                   $("#selection").html(suggestion.value + ', ' + suggestion.data);
                },
                onSearchError: function (query, jqXHR, textStatus, errorThrown) {
                    $('#citySearch').removeClass('autocomplete-loading');
