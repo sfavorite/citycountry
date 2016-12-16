@@ -94,7 +94,7 @@ class ResponseController extends Controller
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->city . '?o=json&key=' . $map_key);
                 break;
             case 'citycountrydistrict':
-                \Debugbar::info(url);
+                \Debugbar::info($url);
                 //$res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/Belize/Belize%20District/Belize%20City/?o=json&key=' . $map_key);
                 $res = $client->request('GET', $url);
                 break;
