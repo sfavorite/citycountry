@@ -90,7 +90,7 @@ class ResponseController extends Controller
         $client = new Client();
         $city = $request->city;
         \Debugbar::info('Using ' . $city);
-        $url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key);
+        //$url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key);
         # Get query type
         switch($queryType) {
             case 'citystate':
