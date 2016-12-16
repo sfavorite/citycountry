@@ -57,7 +57,7 @@
                        suggestions: $.map(response, function(item) {
                            //console.log(response);
                            //console.log('item' + item);
-                           return { value: item.city_name, data: item.subdivision_2_name + ' ' + item.subdivision_1_name + ' ' + item.country_name };
+                           return { value: item.city_name, data: item.subdivision_1_name + ',' + item.country_name };
                        })
                    };
                 },
@@ -67,7 +67,7 @@
                 onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);
                    $("#selection").html(suggestion.value + ', ' + suggestion.data);
-                   LatLon(suggestion.value + ' ' + suggestion.data);
+                   LatLon(suggestion.value + ',' + suggestion.data);
                 },
                 onSearchError: function (query, jqXHR, textStatus, errorThrown) {
                    $('#citySearch').removeClass('autocomplete-loading');
@@ -78,12 +78,16 @@
        });
 
        function LatLon(city) {
-           console.log(city);
-          $.ajax({
-              url: "http://" + server_name + "/api/latlon?city=" + city,
-              success: function(data) {
-                  console.log(data);
-              }
+
+           var areas = city.split(',');
+           console.log(areas);
+           var url = "http://" + server_name + "/api/latlon?city=" + areas[0] + '&subdivision1=' + areas[1] + '&country=' + areas[2];
+           console.log(url);
+           $.ajax({
+                url: url,
+                success: function(data) {
+                   console.log(data);
+                }
           });
        };
 

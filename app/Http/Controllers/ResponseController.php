@@ -82,7 +82,7 @@ class ResponseController extends Controller
         $queryType = 'citycountrydistrict';
 
 
-        $url = 'http://dev.virtualearth.net/REST/v1/Locations' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key;
+        $url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key;
         //$url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->city . '?o=json&key=' . $map_key;
 
         # Start a Guzzle client
