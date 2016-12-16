@@ -107,7 +107,7 @@ class ResponseController extends Controller
 
         $bingJson = $res->getBody();
         $bingObject = json_decode($bingJson, true);
-
+        \Debugbar::info($bingObjext);
         if (json_last_error() === JSON_ERROR_NONE) {
             if (count($bingObject['resourceSets'][0]['resources'])) {
                 $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
