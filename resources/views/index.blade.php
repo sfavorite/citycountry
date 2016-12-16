@@ -42,6 +42,7 @@
            $('#citySearch').devbridgeAutocomplete({
                serviceUrl: "http://" + server_name + "/api/citycountry",
                dataType: 'jsonp',
+               jsonp: 'cb',
                paramName: 'key',
                autoSelectFirst: true,
                onSearchStart: function () {
@@ -63,16 +64,16 @@
                 formatResult: function(suggestion, currentValue){
                     return suggestion.value + ', ' + suggestion.data;
                 },
-               onSelect: function (suggestion) {
+                onSelect: function (suggestion) {
                    console.log(suggestion.value + ' ' + suggestion.data);
                    $("#selection").html(suggestion.value + ', ' + suggestion.data);
                    LatLon(suggestion.value + ' ' + suggestion.data);
-               },
-               onSearchError: function (query, jqXHR, textStatus, errorThrown) {
+                },
+                onSearchError: function (query, jqXHR, textStatus, errorThrown) {
                    $('#citySearch').removeClass('autocomplete-loading');
                    console.log("textStatus: " + textStatus);
                    console.log(query);
-               }
+                }
            });
        });
 

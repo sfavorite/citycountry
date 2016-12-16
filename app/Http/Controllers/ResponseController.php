@@ -77,26 +77,23 @@ class ResponseController extends Controller
     function getLatLon(Request $request) {
         $map_key = env('BING_MAP_KEY');
 
-        \Debugbar::info($request->city);
-        $this->validate($request, [
-            'city' => 'Required'
-        ]);
-        \Debugbar::info('Passed validation');
 
         // For now only check for city name
-        $queryType = 'city';
+        $queryType = 'citycountrydistrict';
+
+
+        //$url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key;
+        $url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . ' ' . $request->city . '?o=json&key=' . $map_key;
 
         # Start a Guzzle client
         $client = new Client();
-        $city = $request->city;
-        \Debugbar::info('Using ' . $city);
-        //$url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key);
+
         # Get query type
         switch($queryType) {
-            case 'citystate':
-                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/' . $city . '?o=json&key=' . $map_key);
-                break;
             case 'city':
+                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->city . '?o=json&key=' . $map_key);
+                break;
+            case 'citycountrydistrict':
                 //$res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/Belize/Belize%20District/Belize%20City/?o=json&key=' . $map_key);
                 $res = $client->request('GET', $url);
                 break;
@@ -109,23 +106,21 @@ class ResponseController extends Controller
 
         $bingJson = $res->getBody();
         $bingObject = json_decode($bingJson, true);
-        \Debugbar::info($bingObject);
 
         if (json_last_error() === JSON_ERROR_NONE) {
-            \Debugbar::info('No json errors');
-            \Debugbar::info($bingObject);
-            //return $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
-    //        $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
-            // Return jsonp
-            return 'hello';
-            return response()
-                        ->json($latLong)
-                        ->withCallback($request->input('callback'));
+            if (count($bingObject['resourceSets'][0]['resources'])) {
+                $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
+                return response()
+                            ->json($latLong)
+                            ->withCallback($request->input('callback'));
+
+            } else {
+                return 'No location information';
+            }
 
         } else {
             return 'JSON Error';
         }
-        //http://dev.virtualearth.net/REST/v1/Locations/US/MN//New York Mills/?o=json&key=Ao5xGJzWOhTG6bx3Ea4cCBrERITo53x03OAHsE9mSJKGRkQ6-Xlvk-H_RNGCf9rq
 
 
     }
