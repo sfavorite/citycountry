@@ -90,13 +90,15 @@ class ResponseController extends Controller
         $client = new Client();
         $city = $request->city;
         \Debugbar::info('Using ' . $city);
+        $url = 'http://dev.virtualearth.net/REST/v1/Locations/' . $request->country . '/' . $request->subdivision1 . '/' . $request->city . '/?o=json&key=' . $map_key);
         # Get query type
         switch($queryType) {
-            case 'city':
+            case 'citystate':
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/' . $city . '?o=json&key=' . $map_key);
                 break;
-            case 'citystate':
-                $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/US/MN//New%20York%20Mills/?o=json&key=A' . $map_key);
+            case 'city':
+                //$res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/Belize/Belize%20District/Belize%20City/?o=json&key=' . $map_key);
+                $res = $client->request('GET', $url);
                 break;
             case 'zip':
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations?postalCode=44223&key=' . $map_key);
@@ -113,8 +115,9 @@ class ResponseController extends Controller
             \Debugbar::info('No json errors');
             \Debugbar::info($bingObject);
             //return $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
-            $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
+    //        $latLong = $bingObject['resourceSets'][0]['resources'][0]['point']['coordinates'];
             // Return jsonp
+            return 'hello';
             return response()
                         ->json($latLong)
                         ->withCallback($request->input('callback'));
