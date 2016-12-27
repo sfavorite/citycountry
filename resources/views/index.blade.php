@@ -55,8 +55,6 @@
                    console.log(response);
                    return {
                        suggestions: $.map(response, function(item) {
-                           //console.log(response);
-                           //console.log('item' + item);
                            return { value: item.city_name, data: item.subdivision_1_name + ',' + item.country_name };
                        })
                    };
