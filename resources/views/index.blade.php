@@ -39,8 +39,12 @@
     $(document).ready(function() {
         var server_name = window.location.host;
        $(function() {
+           if (location.protocol != 'https')
+                var url = "http://" + server_name + "/api/citycountry";
+            else
+                var url = "https://" + server_name + "/api/citycountry";
            $('#citySearch').devbridgeAutocomplete({
-               serviceUrl: "http://" + server_name + "/api/citycountry",
+               serviceUrl: url,
                dataType: 'jsonp',
                jsonp: 'cb',
                paramName: 'key',
