@@ -39,7 +39,7 @@
     $(document).ready(function() {
         var server_name = window.location.host;
        $(function() {
-           if (location.protocol !== 'https') {
+           if (location.protocol !== 'https:') {
                console.log('http');
                 var url = "http://" + server_name + "/api/citycountry";
             }
