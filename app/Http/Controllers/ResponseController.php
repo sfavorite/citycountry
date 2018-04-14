@@ -50,6 +50,10 @@ class ResponseController extends Controller
 
     function getCityInfo(Request $request) {
 
+        $this->validate($request, [
+            'key' => 'AlphaNum|Required',
+        ]);
+        
         //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
         $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
         $cities = City::where('city_name', 'Like',  'Dallas%')->take(20)->get();
