@@ -40,7 +40,7 @@
         var server_name = window.location.host;
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
-               serviceUrl: "http://" + server_name + "/api/citycountry",
+               serviceUrl: "https://" + server_name + "/api/citycountry",
                dataType: 'jsonp',
                jsonp: 'cb',
                paramName: 'key',
@@ -80,7 +80,7 @@
 
            var areas = city.split(',');
            console.log(areas);
-           var url = "http://" + server_name + "/api/latlon?city=" + areas[0] + '&subdivision1=' + areas[1] + '&country=' + areas[2];
+           var url = "https://" + server_name + "/api/latlon?city=" + areas[0] + '&subdivision1=' + areas[1] + '&country=' + areas[2];
            console.log(url);
            $.ajax({
                 url: url,
