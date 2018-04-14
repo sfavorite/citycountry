@@ -72,6 +72,7 @@
                    $('#citySearch').removeClass('autocomplete-loading');
                    console.log("textStatus: " + textStatus);
                    console.log(query);
+                   console.log("error: " +errorThrown);
                 }
            });
        });
