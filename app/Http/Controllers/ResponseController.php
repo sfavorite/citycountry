@@ -54,7 +54,7 @@ class ResponseController extends Controller
         $cities = City::where('city_name', 'Like',  $request->key .'%')->take(20)->get();
         //Log::info('This is not useful information.');
         \Debugbar::info($request->key);
-        return $request->key;
+        return 'Key: ' . $request->key;
         \Debugbar::info($cities);
         return Response::json($cities)->withCallback($request->input('callback'));
 
