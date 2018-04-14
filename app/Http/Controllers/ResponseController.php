@@ -57,9 +57,9 @@ class ResponseController extends Controller
         */
         //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
         $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
+        dump($request);
 
         //Log::info('This is not useful information.');
-        //return Response::json($cities);
 
         \Debugbar::info($cities);
 
