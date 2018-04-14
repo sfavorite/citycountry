@@ -104,7 +104,7 @@ class ResponseController extends Controller
             case 'citycountrydistrict':
                 \Debugbar::info($url);
                 //$res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations/Belize/Belize%20District/Belize%20City/?o=json&key=' . $map_key);
-                return $url;
+
                 $res = $client->request('GET', $url);
                 break;
             case 'zip':
