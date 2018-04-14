@@ -79,7 +79,7 @@
 
            var areas = city.split(',');
            console.log(areas);
-           var url = "http://" + server_name + "/api/latlon?city=" + areas[0] + '&subdivision1=' + areas[1] + '&country=' + areas[2];
+           var url = "https://" + server_name + "/api/latlon?city=" + areas[0] + '&subdivision1=' + areas[1] + '&country=' + areas[2];
            console.log(url);
            $.ajax({
                 url: url,
