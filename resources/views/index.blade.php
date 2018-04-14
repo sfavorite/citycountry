@@ -48,7 +48,7 @@
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
                serviceUrl: url,
-               dataType: 'json',
+               dataType: 'jsonp',
                jsonp: 'cb',
                paramName: 'key',
                autoSelectFirst: true,
