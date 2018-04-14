@@ -40,7 +40,7 @@
         var server_name = window.location.host;
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
-               serviceUrl: "http://" + server_name + "/api/citycountry",
+               serviceUrl: "https://" + server_name + "/api/citycountry",
                dataType: 'jsonp',
                jsonp: 'cb',
                paramName: 'key',
