@@ -51,11 +51,12 @@ class ResponseController extends Controller
     function getCityInfo(Request $request) {
 
         //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
-        $cities = City::where('city_name', 'Like',  $request->key .'%')->take(20)->get();
+        $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
         //Log::info('This is not useful information.');
-        \Debugbar::info($request->key);
-        return 'Key: ' . $request->key;
+        return Response::json($cities);
+
         \Debugbar::info($cities);
+
         return Response::json($cities)->withCallback($request->input('callback'));
 
     }
