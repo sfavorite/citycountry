@@ -52,7 +52,7 @@ class ResponseController extends Controller
 
         //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
         $cities = City::where('city_name', 'Like',  $request->key .'%')->take(20)->get();
-
+        return $request;
         \Debugbar::info($cities);
         return Response::json($cities)->withCallback($request->input('callback'));
 
