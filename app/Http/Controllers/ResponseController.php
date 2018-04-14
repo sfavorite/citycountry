@@ -52,7 +52,8 @@ class ResponseController extends Controller
 
 
         $this->validate($request, [
-            'key' => 'AlphaNum|Required',
+            //'key' => 'AlphaNum|Required',
+            'key' => 'String|Required',
         ]);
 
         //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
@@ -60,7 +61,8 @@ class ResponseController extends Controller
 
 
         //Log::info('This is not useful information.');
-
+        \Debugbar::info($request);
+        \Debugbar::info($request->input('key'));
         \Debugbar::info($cities);
 
         return Response::json($cities)->withCallback($request->input('callback'));
@@ -131,7 +133,5 @@ class ResponseController extends Controller
         } else {
             return 'JSON Error';
         }
-
-
     }
 }
