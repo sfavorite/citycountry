@@ -85,7 +85,6 @@ class ResponseController extends Controller
 
     function getLatLon(Request $request) {
         $map_key = env('BING_MAP_KEY');
-        return ($request);
 
         // For now only check for city name
         $queryType = 'citycountrydistrict';
@@ -113,7 +112,8 @@ class ResponseController extends Controller
             default:
                 $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Locations?postalCode=44223&key=' . $map_key);
         }
-
+        return $res->getBody();
+        
         $bingJson = $res->getBody();
         $bingObject = json_decode($bingJson, true);
         \Debugbar::info($bingObject);
