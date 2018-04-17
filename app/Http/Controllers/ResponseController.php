@@ -53,7 +53,6 @@ class ResponseController extends Controller
     function getCityInfo(Request $request) {
 
             $validated = Validator::make($request->all(), [
-                //'key' => 'AlphaNum|Required',
                 'key' => 'alpha_spaces|Required',
             ]);
         if($validated->passes()) {
