@@ -28,6 +28,15 @@
 
 <body>
     <h1>Test City API</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div><br />
+    @endif
 
     <p id="selection">Nothing selected</p>
 
@@ -44,7 +53,6 @@
         else
              var url =  "https://" + server_name + "/api/citycountry";
 
-       console.log("proto: " + location.protocol);
        $(function() {
            $('#citySearch').devbridgeAutocomplete({
                serviceUrl: url,
@@ -77,9 +85,8 @@
                 },
                 onSearchError: function (query, jqXHR, textStatus, errorThrown) {
                    $('#citySearch').removeClass('autocomplete-loading');
-                   console.log("textStatus: " + textStatus);
-                   console.log(query);
-                   console.log("error: " +errorThrown);
+                   console.log(jqXHR.responseJSON.error);
+                   console.log("error: " + errorThrown);
                 }
            });
        });

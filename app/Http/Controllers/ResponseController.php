@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use \App\City;
 use Response;
+use Illuminate\Support\Facades\Validator;
+
 
 class ResponseController extends Controller
 {
@@ -50,23 +52,26 @@ class ResponseController extends Controller
 
     function getCityInfo(Request $request) {
 
+            $validated = Validator::make($request->all(), [
+                //'key' => 'AlphaNum|Required',
+                'key' => 'alpha_spaces|Required',
+            ]);
+        if($validated->passes()) {
+            //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
+            $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
 
-        $this->validate($request, [
-            //'key' => 'AlphaNum|Required',
-            'key' => 'String|Required',
-        ]);
+            //\Debugbar::info($request);
+            //\Debugbar::info($cities);
 
-        //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
-        $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
-
-
-        //Log::info('This is not useful information.');
-        \Debugbar::info($request);
-        \Debugbar::info($request->input('key'));
-        \Debugbar::info($cities);
-
-        return Response::json($cities)->withCallback($request->input('callback'));
-
+            return Response::json($cities)->withCallback($request->input('callback'));
+        }
+        else {
+            \Debugbar::info($validated->errors()->all());
+            // This is the teapot response - it makes me laugh.
+            return Response::json(['error' => $validated->errors()->all()], 418)->withCallback($request->input('callback'));
+            // This is the more appropriate response - Unprocessable Entity (due to semantic errors)
+            // return Response::json(['error' => $validated->errors()->all()], 422)->withCallback($request->input('callback'));
+        }
     }
 
     function getCityCountry(Request $request) {
