@@ -71,7 +71,7 @@
                    console.log(response);
                    return {
                        suggestions: $.map(response, function(item) {
-                           return { value: item.city_name, data: item.subdivision_1_name + ',' + item.country_name };
+                           return { value: item.city_name, data: item.subdivision_1_name + ', ' + item.country_name };
                        })
                    };
                 },
