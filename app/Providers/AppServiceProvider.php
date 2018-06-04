@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
             // If you want to accept hyphens use: /^[\pL\s-]+$/u.
             return preg_match('/^[\pL\s]+$/u', $value);
         });
+
+        Validator::extend('alpha_spaces_comma', function ($attribute, $value, $parameters, $validator) {
+            // This will only accept alpha, spaces and commas.
+            return preg_match('/^[\pL\s,]+$/u', $value);
+        });
     }
 
     /**
