@@ -53,18 +53,68 @@ class ResponseController extends Controller
     function getCityInfo(Request $request) {
 
             $validated = Validator::make($request->all(), [
-                'key' => 'alpha_spaces|Required',
+                'key' => 'alpha_spaces_comma|Required',
             ]);
-        if($validated->passes()) {
-            //$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
-            $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
 
-            //\Debugbar::info($request);
-            //\Debugbar::info($cities);
+        if($validated->passes()) {
+
+            // Split the key string on spaces and commas
+            $keywords = preg_split("/[,]+/", $request->input('key'));
+
+            // Use a search that matches the number of splits of the input key
+            // This could be one sql query but splitting it may save the database overhead.
+            // I haven't tested this theory...if you do let me know the results. 
+            switch (count($keywords)) {
+                // Search only on the city name
+                case 1:
+                    $cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
+                    break;
+                // Search for the city and subdivision (the state in the USA)
+                case 2:
+                    // Do we have at least something typed for the subdivision - versus just a space.
+                    //if (strlen($keywords[1]) > 0) {
+                        // Remove blank spaces...these appear when a user type the comma and surrouding spaces
+                        $city = trim($keywords[0]);
+                        $subdivision_1 = trim($keywords[1]);
+                        \Debugbar::info($subdivision_1);
+                        $cities = City::where([
+                                        ['city_name', 'Like', $city . '%'],
+                                        ['subdivision_1_name', 'Like',  $subdivision_1 . '%'],
+                                    ])->take(20)->get();
+                        \Debugbar::info($cities);
+
+                    //}
+                    break;
+                // Search with city, subdivision and country
+                case 3:
+                    // Do we have at least something typed for the country - versus just  a space.
+                    if (strlen($keywords[2]) > 1) {
+                        // Remove blank spaces...these appear when a user type the comma and surrouding spaces
+                        $city = trim($keywords[0]);
+                        $subdivision_1 = trim($keywords[1]);
+                        $country = trim($keywords[2]);
+                        $cities = City::where([
+                                        ['city_name', 'Like', $city . '%'],
+                                        ['subdivision_1_name', 'Like',  $subdivision_1 .'%'],
+                                        ['country_name', 'Like', $country . '%'],
+                                    ])->take(20)->get();
+
+                    } else {
+                        $cities = City::where('city_name', 'Like',  $keywords[0] .'%')->take(20)->get();
+                    }
+                    break;
+                default:
+                    $cities = City::where('city_name', 'Like',  $keywords[0] .'%')->take(20)->get();
+                    break;
+            }
+
+            #$cities = City::where('city_name', '=', 'Dallas')->select('city_name', 'country_name')->first();
+            #$cities = City::where('city_name', 'Like',  $request->input('key') .'%')->take(20)->get();
 
             return Response::json($cities)->withCallback($request->input('callback'));
         }
         else {
+            \Debugbar::info('Error');
             \Debugbar::info($validated->errors()->all());
             // This is the teapot response - it makes me laugh.
             return Response::json(['error' => $validated->errors()->all()], 418)->withCallback($request->input('callback'));
